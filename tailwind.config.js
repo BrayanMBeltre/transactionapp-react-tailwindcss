@@ -1,13 +1,20 @@
 module.exports = {
   purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
-  darkMode: "class", // or 'media' or 'class'
+  darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      transformOrigin: {
+        0: "0%",
+      },
+      zIndex: {
+        "-1": "-1",
+      },
+    },
   },
   variants: {
     extend: {
-      filter: ["hover", "focus", "group-hover"],
+      borderColor: ["responsive", "hover", "focus", "focus-within"],
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/forms")],
 };

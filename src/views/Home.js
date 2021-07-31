@@ -1,48 +1,33 @@
-import React, { useEffect, useState } from "react";
-
-import Header from "../components/Header";
 import BottomNav from "../components/BottomNav";
+import Header from "../components/Header";
 import Spin from "../components/Spin";
 import TransactionsList from "../components/TransactionsList";
+import { useFetch } from "../hooks/useFetch";
 
-const Home = () => {
-  const [transactions, setTransactions] = useState([{}]);
-  const [loading, setLoading] = useState(false);
+export default function Home() {
+  const { status, data, error } = useFetch(
+    "http://localhost:3000/api/transactions"
+  );
 
-  const fetchData = async () => {
-    try {
-      setLoading(true);
-      const res = await fetch("http://localhost:3000/api/transactions");
-      const data = await res.json();
-      setTransactions(data);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  status === "error" && console.log(error);
 
   return (
-    <React.Fragment>
-      <Header title="Transactions" />
+    <>
+      <div className="flex justify-between items-center">
+        <Header title="Transactions" />
+      </div>
       <main>
         <div className="pt-24 h-screen">
-          {loading === true ? (
+          {status === "fetching" ? (
             <Spin />
           ) : (
             <div className="h-full pb-16">
-              <TransactionsList transactions={transactions} />
+              <TransactionsList transactions={data} />
             </div>
           )}
         </div>
       </main>
       <BottomNav />
-    </React.Fragment>
+    </>
   );
-};
-
-export default Home;
+}

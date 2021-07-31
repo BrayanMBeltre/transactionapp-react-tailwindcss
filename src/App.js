@@ -1,12 +1,12 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
-import Home from "./views/Home";
-import Upload from "./views/Upload";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Download from "./views/Download";
+import Home from "./views/Home";
+import NewTransaction from "./views/NewTransaction";
 import NotFound from "./views/NotFound";
+import Upload from "./views/Upload";
 
-const App = () => {
+export default function App() {
   return (
     <Router>
       <Switch>
@@ -15,6 +15,9 @@ const App = () => {
         </Route>
         <Route path="/upload">
           <Upload />
+        </Route>
+        <Route path="/new">
+          <NewTransaction />
         </Route>
         <Route path="/download">
           <Download />
@@ -25,6 +28,4 @@ const App = () => {
       </Switch>
     </Router>
   );
-};
-
-export default App;
+}

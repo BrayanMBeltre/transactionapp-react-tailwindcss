@@ -1,13 +1,14 @@
-import React, { useState } from "react";
-
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
+import DropZone from "../components/DropZone";
 import Header from "../components/Header";
 import Nav from "../components/Nav";
-import DropZone from "../components/DropZone";
 import Spin from "../components/Spin";
 
-const Upload = () => {
+export default function Upload() {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(false);
+  const history = useHistory();
 
   const postData = () => {
     setLoading(true);
@@ -25,6 +26,7 @@ const Upload = () => {
         const content = await res.json();
         console.log(content);
         setLoading(false);
+        history.push("/");
       } catch (error) {
         console.log(error);
         setLoading(false);
@@ -38,7 +40,7 @@ const Upload = () => {
   };
 
   return (
-    <React.Fragment>
+    <>
       <Nav />
       <Header title="Upload" />
       <main>
@@ -58,8 +60,6 @@ const Upload = () => {
           </form>
         </div>
       </main>
-    </React.Fragment>
+    </>
   );
-};
-
-export default Upload;
+}

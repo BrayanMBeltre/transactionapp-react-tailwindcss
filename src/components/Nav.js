@@ -1,11 +1,11 @@
-import { Link } from "react-router-dom";
-import React from "react";
 import {
   ArrowLeftIcon,
-  PlusIcon,
-  PencilIcon,
   MenuIcon,
+  PencilIcon,
+  PlusIcon,
 } from "@heroicons/react/outline";
+import React from "react";
+import { Link } from "react-router-dom";
 const Nav = () => {
   const ShowPlus = false;
   const showEdit = false;

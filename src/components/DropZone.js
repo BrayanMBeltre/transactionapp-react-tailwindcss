@@ -1,9 +1,8 @@
-import { useDropzone } from "react-dropzone";
-import XML from "fast-xml-parser";
-
 import { ChevronDoubleDownIcon } from "@heroicons/react/outline";
+import XML from "fast-xml-parser";
+import { useDropzone } from "react-dropzone";
 
-const DropZone = ({ setTransactions }) => {
+export default function DropZone({ setTransactions }) {
   const onDrop = (files) => {
     files.forEach((file) => {
       const reader = new FileReader();
@@ -15,11 +14,10 @@ const DropZone = ({ setTransactions }) => {
             setTransactions(parse);
           };
         } else {
-          reader.onload = (e) => {
+          reader.onload = async (e) => {
             const fileContent = e.target.result;
             const parse = XML.parse(fileContent);
             setTransactions(parse.root.element);
-            console.log(parse.root.element);
           };
         }
       } catch (error) {
@@ -29,15 +27,11 @@ const DropZone = ({ setTransactions }) => {
     });
   };
 
-  const {
-    acceptedFiles,
-    getRootProps,
-    getInputProps,
-    fileRejections,
-  } = useDropzone({
-    onDrop,
-    accept: ".json,.xml",
-  });
+  const { acceptedFiles, getRootProps, getInputProps, fileRejections } =
+    useDropzone({
+      onDrop,
+      accept: ".json,.xml",
+    });
 
   const files = (
     <div className=" py-6 sm:px-0 divide-y divide-gray-500 divide-opacity-25">
@@ -77,6 +71,4 @@ const DropZone = ({ setTransactions }) => {
       <div className="rounded-md shadow"></div>
     </div>
   );
-};
-
-export default DropZone;
+}
